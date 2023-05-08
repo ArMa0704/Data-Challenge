@@ -10,7 +10,7 @@ def validate_json(json_data):
     except ValueError as e:
         return False
 
-json_dir = "/Users/tushargupta/Desktop/Uni/Y1/Q4/DBL/data"
+json_dir = "/Users/polinastp/Documents/uni/year1/Q4/dbl/data"
 db_filename = "data.db"
 table_name = "twitter_data"
 
