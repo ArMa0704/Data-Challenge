@@ -1,106 +1,76 @@
 
-import os
 import json
+import os
 import sqlite3
 
-json_folder = '/Users/tushargupta/Desktop/Uni/Y1/Q4/DBL Data Challenge/data'
+def validate_json(json_data):
+    try:
+        json.loads(json_data)
+        return True
+    except ValueError as e:
+        return False
 
-# create a connection to the SQLite database
-conn = sqlite3.connect('/Users/tushargupta/Desktop/Uni/Y1/Q4/DBL Data Challenge/data.db')
-c = conn.cursor()
+json_dir = "/Users/tushargupta/Desktop/Uni/Y1/Q4/DBL/data"
+db_filename = "data.db"
+table_name = "twitter_data"
 
-# ... (table creation code remains the same)
+columns = [
+    "created_at",
+    "id",
+    "id_str",
+    "text",
+    "source",
+    "truncated",
+    "user_id",
+    "user_name",
+    "user_screen_name",
+    "user_location",
+    "user_description",
+    "user_verified",
+    "user_followers_count",
+    "user_friends_count",
+    "user_statuses_count"
+]
 
-# loop through each file in the folder
-for filename in os.listdir(json_folder):
-    if filename.endswith('.json'):
-        filepath = os.path.join(json_folder, filename)
-        with open(filepath, 'r', encoding='utf-8') as f:
-            # read all the lines in the file and remove extra spaces
-            lines = (line.strip() for line in f)
+conn = sqlite3.connect(db_filename)
+cursor = conn.cursor()
 
-            # loop through each line and parse the JSON object
-            for line in lines:
-                try:
-                    json_obj = json.loads(line)
+cursor.execute("CREATE TABLE IF NOT EXISTS {} ({})".format(table_name, ', '.join([f'{col} TEXT' if col != 'id' else f'{col} INTEGER PRIMARY KEY' for col in columns])))
+conn.commit()
 
-                    # extract the required fields from the JSON object
-                    # ... (previous fields remain the same)
+for filename in os.listdir(json_dir):
+    if filename.endswith(".json"):
+        with open(os.path.join(json_dir, filename), "r", encoding="utf-8") as f:
+            for line in f:
+                if validate_json(line):
+                    data = json.loads(line)
 
-                    user_followers_count = json_obj['user']['followers_count']
-                    user_friends_count = json_obj['user']['friends_count']
-                    user_listed_count = json_obj['user']['listed_count']
-                    user_favourites_count = json_obj['user']['favourites_count']
-                    user_statuses_count = json_obj['user']['statuses_count']
-                    user_created_at = json_obj['user']['created_at']
-                    user_utc_offset = json_obj['user']['utc_offset']
-                    user_time_zone = json_obj['user']['time_zone']
-                    user_geo_enabled = json_obj['user']['geo_enabled']
-                    user_lang = json_obj['user']['lang']
-                    user_contributors_enabled = json_obj['user']['contributors_enabled']
-                    user_is_translator = json_obj['user']['is_translator']
-                    user_profile_background_color = json_obj['user']['profile_background_color']
-                    user_profile_background_image_url = json_obj['user']['profile_background_image_url']
-                    user_profile_background_image_url_https = json_obj['user']['profile_background_image_url_https']
-                    user_profile_background_tile = json_obj['user']['profile_background_tile']
-                    user_profile_link_color = json_obj['user']['profile_link_color']
-                    user_profile_sidebar_border_color = json_obj['user']['profile_sidebar_border_color']
-                    user_profile_sidebar_fill_color = json_obj['user']['profile_sidebar_fill_color']
-                    user_profile_text_color = json_obj['user']['profile_text_color']
-                    user_profile_use_background_image = json_obj['user']['profile_use_background_image']
-                    user_profile_image_url = json_obj['user']['profile_image_url']
-                    user_profile_image_url_https = json_obj['user']['profile_image_url_https']
-                    user_profile_banner_url = json_obj['user']['profile_banner_url']
-                    user_default_profile = json_obj['user']['default_profile']
-                    user_default_profile_image = json_obj['user']['default_profile_image']
-                    geo = json_obj['geo']
-                    coordinates = json_obj['coordinates']
-                    place = json_obj['place']
-                    contributors = json_obj['contributors']
-                    is_quote_status = json_obj['is_quote_status']
-                    quote_count = json_obj['quote_count']
-                    reply_count = json_obj['reply_count']
-                    json_text = json.dumps(json_obj)
+                    user = data.get("user")
+                    if user is not None:
+                        values = [
+                            data.get("created_at"),
+                            data.get("id"),
+                            data.get("id_str"),
+                            data.get("text"),
+                            data.get("source"),
+                            data.get("truncated"),
+                            user.get("id"),
+                            user.get("name"),
+                            user.get("screen_name"),
+                            user.get("location"),
+                            user.get("description"),
+                            user.get("verified"),
+                            user.get("followers_count"),
+                            user.get("friends_count"),
+                            user.get("statuses_count")
+                        ]
 
-                    # insert the data into the SQLite database
-                    c.execute('''INSERT INTO json_data
-                                 (created_at, id_str, text, display_text_range, source, truncated,
-                                  in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id,
-                                  in_reply_to_user_id_str, in_reply_to_screen_name, user_id, user_name,
-                                  user_screen_name, user_location, user_description, user_protected,
-                                  user_verified, user_followers_count, user_friends_count, user_listed_count,
-                                  user_favourites_count, user_statuses_count, user_created_at, user_utc_offset,
-                                  user_time_zone, user_geo_enabled, user_lang, user_contributors_enabled,
-                                  user_is_translator, user_profile_background_color, user_profile_background_image_url,
-                                  user_profile_background_image_url_https, user_profile_background_tile,
-                                  user_profile_link_color, user_profile_sidebar_border_color, user_profile_sidebar_fill_color,
-                                  user_profile_text_color, user_profile_use_background_image, user_profile_image_url,
-                                  user_profile_image_url_https, user_profile_banner_url, user_default_profile,
-                                  user_default_profile_image, geo, coordinates, place, contributors, is_quote_status,
-                                  quote_count, reply_count, json_text)
-                                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',
-                                 (created_at, id_str, text, display_text_range, source, truncated,
-                                  in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id,
-                                  in_reply_to_user_id_str, in_reply_to_screen_name, user_id, user_name,
-                                  user_screen_name, user_location, user_description, user_protected,
-                                  user_verified, user_followers_count, user_friends_count, user_listed_count,
-                                  user_favourites_count, user_statuses_count, user_created_at, user_utc_offset,
-                                  user_time_zone, user_geo_enabled, user_lang, user_contributors_enabled,
-                                  user_is_translator, user_profile_background_color, user_profile_background_image_url,
-                                  user_profile_background_image_url_https, user_profile_background_tile,
-                                  user_profile_link_color, user_profile_sidebar_border_color, user_profile_sidebar_fill_color,
-                                  user_profile_text_color, user_profile_use_background_image, user_profile_image_url,
-                                  user_profile_image_url_https, user_profile_banner_url, user_default_profile,
-                                  user_default_profile_image, geo, coordinates, place, contributors, is_quote_status,
-                                  quote_count, reply_count, json_text))
+                        cursor.execute("REPLACE INTO {} ({}) VALUES ({})".format(table_name, ', '.join(columns), ', '.join(['?' for _ in columns])), values)
+                        conn.commit()
 
-                    # commit the changes and close the connection
-                    conn.commit()
-
-                except Exception as e:
-                    print(f"Error processing line: {line}")
-                    print(f"Error: {e}")
-
-# close the connection to the SQLite database
 conn.close()
+
+
+
+
 
