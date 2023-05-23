@@ -24,14 +24,18 @@ warnings.warn("this will not show")
 pd.set_option('display.max_columns', None)
 
 df = pd.read_csv("/Users/tushargupta/Desktop/Uni/Y1/Q4/DBL/Full_AmericanAir-Final.csv")
+
+#drops null tweets
 df.dropna(subset=['text'], inplace=True)
 
+#breaks tweets into single words using regular expression
 rt = lambda x: re.sub("[^a-zA-Z]", ' ', str(x))
 df['text'] = df['text'].map(rt)
 df['text'] = df['text'].str.lower()
 
 df[['polarity', 'subjectivity']] = df['text'].apply(lambda Text:pd.Series(TextBlob(Text).sentiment))
 
+#calling the sentiment analyser
 analyser = SentimentIntensityAnalyzer()
 for index, row in df['text'].items():   # here I replaced iteritems() with items()
     score = analyser.polarity_scores(row)
