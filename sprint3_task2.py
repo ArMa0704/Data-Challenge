@@ -3,6 +3,8 @@ import pandas as pd
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import seaborn as sns
 import matplotlib.pyplot as plt
+from translate import Translator
+translator = Translator(to_lang="en")
 
 nltk.download('vader_lexicon')
 
@@ -16,6 +18,18 @@ df.dropna(subset=['original_tweet'], inplace=True)
 df = df.drop_duplicates()
 
 df['original_tweet'] = df['original_tweet'].str.lower()
+
+# Tranlates tweets
+def translate_text(text):
+    try:
+        return translator.translate(text)
+    except Exception as e:
+        print(str(e))
+        return text
+
+
+# Translate 'original_tweet' and 'thread' columns to English
+df['original_tweet'] = df['original_tweet'].apply(translate_text)
 
 # Getting sentiment
 analyser = SentimentIntensityAnalyzer()
@@ -39,7 +53,7 @@ df_no_conversation = df[df['is_conversation'] == False]
 # Plotting sentiment analysis for conversation tweets
 plt.figure(figsize=(10, 5))
 sns.countplot(x='sentiment', data=df_conversation)
-plt.set_ylabel('count', fontsize=16)
+# plt.set_ylabel('count', fontsize=16)
 plt.title('Sentiment Analysis of Tweets With Conversation', size=16, weight='bold')
 # plt.savefig('sentiment_w_convo.png')
 plt.show()
