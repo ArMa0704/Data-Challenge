@@ -4,6 +4,7 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import seaborn as sns
 import matplotlib.pyplot as plt
 from translate import Translator
+
 translator = Translator(to_lang="en")
 
 nltk.download('vader_lexicon')
@@ -19,6 +20,7 @@ df = df.drop_duplicates()
 
 df['original_tweet'] = df['original_tweet'].str.lower()
 
+
 # Tranlates tweets
 def translate_text(text):
     try:
@@ -33,34 +35,47 @@ df['original_tweet'] = df['original_tweet'].apply(translate_text)
 
 # Getting sentiment
 analyser = SentimentIntensityAnalyzer()
-for index, row in df['original_tweet'].items():
-    score = analyser.polarity_scores(row)
 
-    neg = score['neg']
-    neu = score['neu']
-    pos = score['pos']
-    if neg > pos:
-        df.loc[index, 'sentiment'] = "Negative Engagement"
-    elif pos > neg:
-        df.loc[index, 'sentiment'] = "Positive Engagement"
+# Iterate over rows to calculate sentiment
+for index, row in df.iterrows():
+    if row['is_conversation'] == True:
+        score = analyser.polarity_scores(row['thread'])
+        neg = score['neg']
+        neu = score['neu']
+        pos = score['pos']
+        if neg > pos:
+            df.loc[index, 'sentiment'] = "Negative Engagement"
+        elif pos > neg:
+            df.loc[index, 'sentiment'] = "Positive Engagement"
+        else:
+            df.loc[index, 'sentiment'] = "Neutral Engagement"
     else:
-        df.loc[index, 'sentiment'] = "Neutral Engagement"
+        score = analyser.polarity_scores(row['original_tweet'])
+        neg = score['neg']
+        neu = score['neu']
+        pos = score['pos']
+        if neg > pos:
+            df.loc[index, 'sentiment'] = "Negative Engagement"
+        elif pos > neg:
+            df.loc[index, 'sentiment'] = "Positive Engagement"
+        else:
+            df.loc[index, 'sentiment'] = "Neutral Engagement"
 
-# Separating data based on 'is_conversation' column
-df_conversation = df[df['is_conversation'] == True]
-df_no_conversation = df[df['is_conversation'] == False]
+
+color_palette = {
+    "Positive Engagement": "green",
+    "Negative Engagement": "red",
+    "Neutral Engagement": "blue"
+}
 
 # Plotting sentiment analysis for conversation tweets
 plt.figure(figsize=(10, 5))
-sns.countplot(x='sentiment', data=df_conversation)
-# plt.set_ylabel('count', fontsize=16)
+sns.countplot(x='sentiment', data=df[df['is_conversation'] == True], palette=color_palette)
 plt.title('Sentiment Analysis of Tweets With Conversation', size=16, weight='bold')
-# plt.savefig('sentiment_w_convo.png')
 plt.show()
 
 # Plotting sentiment analysis for non-conversation tweets
 plt.figure(figsize=(10, 5))
-sns.countplot(x='sentiment', data=df_no_conversation)
-plt.title('Sentiment Analysis of Tweets Without Conversation',size=16, weight='bold')
-# plt.savefig('sentiment_wo_convo.png')
+sns.countplot(x='sentiment', data=df[df['is_conversation'] == False], palette=color_palette)
+plt.title('Sentiment Analysis of Tweets Without Conversation', size=16, weight='bold')
 plt.show()
