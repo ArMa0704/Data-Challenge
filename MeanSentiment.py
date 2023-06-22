@@ -201,7 +201,7 @@ def mean_comparison_chart(data, title):
     plt.figure(figsize = (10, 7))
     plt.title(title)
     plt.bar(all_dataset_names, data)
-    plt.ylim(0, 2)
+    plt.ylim(0, 0.15)
     plt.xticks(rotation = 45)
     plt.show()
 
@@ -210,5 +210,5 @@ results = [[0.032, 0.006, 0.084, 0.145, 0.025, 0.006, 0.034, 0.039], [0.286, 0.2
 print(results)
 
 mean_comparison_chart(results[0], 'Mean customer sentiment by company')
-mean_comparison_chart(results[1], 'Mean customer sentiment change by company')
-mean_comparison_chart(results[2], 'Mean customer sentiment change multiplier by company')
+# mean_comparison_chart(results[1], 'Mean customer sentiment change by company')
+# mean_comparison_chart(results[2], 'Mean customer sentiment change multiplier by company')
