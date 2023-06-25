@@ -1,0 +1,104 @@
+These are all the quries used in MongoDB compass to extract the data we want
+
+# Lufthansa Data Query
+
+{
+ "$or": [
+   { "user.screen_name": { "$regex": "^lufthansa$", "$options": "i" } },
+   { "user.id": 124476322 },
+   { "user.id_str": "124476322" },
+   { "user.name": "Lufthansa" },
+   { "text": { "$regex": "lufthansa|@lufthansa|Lufthansa Airlines", "$options": "i" } },
+   { "entities.urls.expanded_url": { "$regex": "lufthansa\\.com", "$options": "i" } },
+   { "entities.hashtags.text": { "$regex": "#Lufthansa|#LH|#LufthansaAirlines", "$options": "i" } },
+   { "entities.user_mentions": { "$elemMatch": { "id": 124476322, "screen_name": { "$regex": "^lufthansa$", "$options": "i" } } } },
+   { "extended_tweet.full_text": { "$regex": "lufthansa|@lufthansa|Lufthansa Airlines", "$options": "i" } }
+ ]
+}
+
+
+# AmericanAir Query
+{
+ "$or": [
+   { "user.screen_name": { "$regex": "^AmericanAir$", "$options": "i" } },
+   { "user.id": 22536055 },
+   { "user.id_str": "22536055" },
+   { "text": { "$regex": "American Airlines|@AmericanAir|AmericanAir", "$options": "i" } },
+   { "user.name": "American Airlines" },
+   { "entities.urls.expanded_url": { "$regex": "aa\\.com", "$options": "i" } },
+   { "entities.hashtags.text": { "$regex": "#AmericanAirlines|#AA|#AmericanAir", "$options": "i" } },
+   { "entities.user_mentions": { "$elemMatch": { "id": 22536055, "screen_name": { "$regex": "^AmericanAir$", "$options": "i" } } } },
+   { "extended_tweet.full_text": { "$regex": "@AmericanAir", "$options": "i" } }
+ ]
+}
+
+# All Airline
+{
+ "$or": [
+   {
+     "$or": [
+       { "user.id": 56377143 },
+       { "entities.user_mentions": { "$elemMatch": { "id": 56377143 } } },
+       { "text": { "$regex": "klm|@klm|KLM Airlines", "$options": "i" } }
+     ]
+   },
+   {
+     "$or": [
+       { "user.id": 106062176 },
+       { "entities.user_mentions": { "$elemMatch": { "id": 106062176 } } },
+       { "text": { "$regex": "airfrance|@airfrance|AirFrance Airlines", "$options": "i" } }
+     ]
+   },
+   {
+     "$or": [
+       { "user.id": 18332190 },
+       { "entities.user_mentions": { "$elemMatch": { "id": 18332190 } } },
+       { "text": { "$regex": "british_airways|@british_airways|British Airways", "$options": "i" } }
+     ]
+   },
+   {
+     "$or": [
+       { "user.id": 2182373406 },
+       { "entities.user_mentions": { "$elemMatch": { "id": 2182373406 } } },
+       { "text": { "$regex": "airberlin|@airberlin|AirBerlin Airlines", "$options": "i" } }
+     ]
+   },
+   {
+     "$or": [
+       { "user.id": 38676903 },
+       { "entities.user_mentions": { "$elemMatch": { "id": 38676903 } } },
+       { "text": { "$regex": "easyjet|@easyjet|EasyJet Airlines", "$options": "i" } }
+     ]
+   },
+   {
+     "$or": [
+       { "user.id": 1542862735 },
+       { "entities.user_mentions": { "$elemMatch": { "id": 1542862735 } } },
+       { "text": { "$regex": "ryanair|@ryanair|RyanAir Airlines", "$options": "i" } }
+     ]
+   },
+   {
+     "$or": [
+       { "user.id": 20626359 },
+       { "entities.user_mentions": { "$elemMatch": { "id": 20626359 } } },
+       { "text": { "$regex": "virginatlantic|@virginatlantic|VirginAtlantic Airlines", "$options": "i" } }
+     ]
+   }
+ ]
+}
+{
+  "$or": [
+    { "user.id": 253340062 },
+    { "entities.user_mentions": { "$elemMatch": { "id": 253340062 } } },
+    { "text": { "$regex": "singaporeair|@singaporeair|SingaporeAir Airlines", "$options": "i" } }
+  ]
+}
+
+{
+  "$or": [
+    { "user.id": 45621423 },
+    { "entities.user_mentions": { "$elemMatch": { "id": 45621423 } } },
+    { "text": { "$regex": "etihadairways|@etihadairways|EtihadAirways Airlines", "$options": "i" } }
+  ]
+}
+
