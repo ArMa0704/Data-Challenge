@@ -27,7 +27,7 @@ Following these instructions can ensure a smooth setup process and avoid any pot
  1. Clone the repository on your machine using `git clone` command. Use `git pull` to fetch the latest updates.
  2. Set up the local environment using a venv module `python3 -m venv env`. Use the following prompt to activate it `.\env\Scripts\activate` for windows or `source env/bin/activate` for macOS.
  
-## Roadmap of sprints 
+## Roadmap of python files for the sprints 
   ### Sprint 1 - extraction and cleaning of data using MongoDB and fundamental analysis 
     * DATA CLEANING.py
     * JSON load.py
