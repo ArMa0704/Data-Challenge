@@ -15,7 +15,7 @@ pd.set_option('display.max_columns', None)
 # nltk.download('vader_lexicon')
 analyser = SentimentIntensityAnalyzer()
 
-df = pd.read_csv("/Users/tushargupta/Desktop/Uni/Y1/Q4/DBL/dataset/lufthansa addeduser id.csv")
+df = pd.read_csv("data/lufthansa addeduser id.csv")
 
 # Convert the time strings to datetime objects
 df['datetime_first_tweet'] = pd.to_datetime(df['datetime_first_tweet'])
