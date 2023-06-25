@@ -17,7 +17,7 @@ warnings.filterwarnings("ignore")
 warnings.warn("this will not show")
 pd.set_option('display.max_columns', None)
 
-df = pd.read_csv("/Users/tushargupta/Desktop/Uni/Y1/Q4/DBL/dataset/ConversationsLufthansa.csv")
+df = pd.read_csv("data/ConversationsLufthansa.csv")
 
 # Convert the time strings to datetime objects
 df['datetime_first_tweet'] = pd.to_datetime(df['datetime_first_tweet'])

@@ -1,4 +1,3 @@
-
 import ssl
 import nltk
 import numpy as np
@@ -18,8 +17,8 @@ pd.set_option('display.max_columns', None)
 
 nltk.download('vader_lexicon')
 analyser = SentimentIntensityAnalyzer()
-df1 = pd.read_csv("/Users/tushargupta/Desktop/Uni/Y1/Q4/DBL/dataset/ConversationsLufthansa.csv")
-df2 = pd.read_csv("/Users/tushargupta/Desktop/Uni/Y1/Q4/DBL/dataset/ConversationsAmericanAir.csv")
+df1 = pd.read_csv("data/ConversationsLufthansa.csv")
+df2 = pd.read_csv("data/ConversationsAmericanAir.csv")
 
 def month(df):
     # Convert the time strings to datetime objects
@@ -88,6 +87,3 @@ plt.tight_layout(rect=[0, 0, 1, 0.96]) # Leave space for the suptitle
 plt.show()
 
 ssl._create_default_https_context = ssl.create_default_context
-
-
-
