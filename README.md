@@ -11,13 +11,22 @@ This project was developed as part of the Data Science program at the Technical 
 ## Built with 
  * Python
  * MongoDB
+   
+## Prerequisites
+
+Before you proceed, ensure that you have the following installed in your local machine:
+
+1. [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git): a version control system for tracking changes in computer files and coordinating work on those files among multiple people.
+2. [Python](https://www.python.org/downloads/): a popular programming language. This project is built with Python, ensure you have version 3.x installed.
+3. [pip](https://pip.pypa.io/en/stable/installation/): a package installer for Python. You can usually install it alongside Python.
 
 ## Getting started 
 To get started with our project, we have provided an installation guide that outlines the required dependencies and steps for setting up the environment.
 Following these instructions can ensure a smooth setup process and avoid any potential compatibility issues.
 
  1. Clone the repository on your machine using `git clone` command. Use `git pull` to fetch the latest updates.
-
+ 2. Set up the local environment using a venv module `python3 -m venv env`. Use the following prompt to activate it `.\env\Scripts\activate` for windows or `source env/bin/activate` for macOS.
+ 
 ## Roadmap of sprints 
   ### Sprint 1 - extraction and cleaning of data using MongoDB and fundamental analysis 
     * DATA CLEANING.py
