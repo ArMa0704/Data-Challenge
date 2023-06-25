@@ -79,3 +79,9 @@ for tweet in tweets:
         
     print(f"Sentiment Label: {sentiment_label}")
     print("")
+
+
+sentence = 'Alright it is solved now'
+sid = SentimentIntensityAnalyzer()
+sentiment_dict = sid.polarity_scores(sentence)
+print(sentiment_dict)
