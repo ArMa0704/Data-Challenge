@@ -43,4 +43,39 @@ example_sentences = [ "Great work @lufthansa take a suit carrier off me and then
 
 
 for i in range(len(example_sentences)):
-    print(sentiment_vader(example_sentences[i]))
+    print(sentiment_vader(example_sentences[I]))
+
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+
+tweets = [
+    'Thank you Lufthansa for forgetting my bags!',
+    'Lufthansa is the worst airline to exist!',
+    'When can I check-in for my flight?',
+    'Thanks, it is good now',
+]
+
+# Set up VADER sentiment analyzer
+sid = SentimentIntensityAnalyzer()
+
+# Perform sentiment analysis on tweets
+for tweet in tweets:
+    sentiment_dict = sid.polarity_scores(tweet)
+    
+    print(f"Tweet: {tweet}")
+    print(f"Sentiment: {sentiment_dict['compound']:.2f}")
+
+    # Print individual sentiment scores
+    print(f"  Positive: {sentiment_dict['pos']:.2f}")
+    print(f"  Negative: {sentiment_dict['neg']:.2f}")
+    print(f"  Neutral: {sentiment_dict['neu']:.2f}")
+
+    # Determine sentiment label
+    if sentiment_dict['compound'] >= 0.05:
+        sentiment_label = 'Positive'
+    elif sentiment_dict['compound'] <= -0.05:
+        sentiment_label = 'Negative'
+    else:
+        sentiment_label = 'Neutral'
+        
+    print(f"Sentiment Label: {sentiment_label}")
+    print("")
