@@ -26,9 +26,10 @@ Following these instructions can ensure a smooth setup process and avoid any pot
 
  1. Clone the repository on your machine using `git clone` command. Use `git pull` to fetch the latest updates.
  2. Set up the local environment using a venv module `python3 -m venv env`. Use the following prompt to activate it `.\env\Scripts\activate` for windows or `source env/bin/activate` for macOS.
- 
+ 3. Download the airline files that have been filtered on MongoDB (No code for this. Queries that were used in the MongoDB Compass are given)
 ## Roadmap of python files for the sprints 
   ### Sprint 1 - extraction and cleaning of data using MongoDB/MySQLite and fundamental analysis 
+    * MongoDB Queries - One csv file for each Airline  
     * DATA CLEANING.py
     * JSON load.py
     * Plots-Extras.py
@@ -36,19 +37,27 @@ Following these instructions can ensure a smooth setup process and avoid any pot
     * data_cleaning.py
     * json_load.py
   ### Sprint 2 - the refinement of data and basic sentiment analysis 
+    * Download the airline files before running these tasks
+    * cleaning-csv.py (Airline Cleaning and Prep for conversation Extraction)
+    * conversation-extract.py (Use path of each airline file thats been cleaned and and use corresponding
+    airline id in the functions)
     * MeanSentiment.py
     * TextBlob-testing.py
     * Vader-testing.py
     * extra 1 pres 2.py
+    * Response Time Sentiment ExtraSprint2.py
     * sentiment analysis.py
     * statistics_convo.py
   ### Sprint 3 - sentiment analysis of conversations 
     * extras 1 pres 2.py
     * sentiment analysis on conversations_S3_t1.py
     * sprint 3_task2.py
-  ### Sprint 4 - deep sentiment analysis of conversations 
+  ### Sprint 4 - deep sentiment analysis of conversations
     * one sided convo extra.py
     * reply words polina demo.py
     * sentiment flight related tweets.py
     * sentiment over reply count.py
+    * First Response Sentiment by Client.py (Preps conversation file for response time vs sentiment graphs)
+    * Sent vs Response Time Lufthansa First Reply.py
+    * Covid Times, response and sentiment.py
 
