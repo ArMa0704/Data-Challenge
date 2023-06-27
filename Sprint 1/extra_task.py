@@ -5,7 +5,7 @@ import os
 # Load the CSV file into a Pandas DataFrame
 chunksize = 10 ** 7  # adjust this value to fit your needs
 chunks = []
-for chunk in pd.read_csv("C:\Users\danie\Downloads\all-data\Full-Lufthansa-Final.csv",
+for chunk in pd.read_csv('/Users/polinastp/Documents/uni/year1/Q4/dbl/Lufthansa-data-u.csv',
                          chunksize=chunksize,
                          escapechar=None,
                          on_bad_lines='skip',
@@ -38,7 +38,7 @@ plt.title("Lufthansa's engagement with their customers on Twitter")
 plt.axis('equal')
 
 # Save the graph to a PNG file
-output_dir = os.path.dirname("C:\Users\danie\Downloads\all-data\Full-Lufthansa-Final.csv")
+output_dir = os.path.dirname('/Users/polinastp/Documents/uni/year1/Q4/dbl/Lufthansa-data-u.csv')
 output_filename = os.path.join(output_dir, 'engagement_chart.png')
 plt.savefig(output_filename)
 
@@ -60,8 +60,8 @@ from pandas.tseries.offsets import DateOffset
 os.environ['MKL_CBWR'] = 'AUTO'
 
 # Load the data from csv
-lufthansa_path = "C:\Users\danie\Downloads\all-data\Full-Lufthansa-Final.csv"
-american_path = "C:\Users\danie\Downloads\all-data\Full_AmericanAir-Final.csv"
+lufthansa_path = '/Users/polinastp/Documents/uni/year1/Q4/dbl/Lufthansa-data-u.csv'
+american_path = '/Users/polinastp/Documents/uni/year1/Q4/dbl/Full_AmericanAir-Final.csv'
 
 df1 = pd.read_csv(lufthansa_path)
 df2 = pd.read_csv(american_path)
@@ -140,7 +140,7 @@ plt.title('Future Predicted Retweet Counts for Two Airlines')
 plt.legend()
 
 # Save the graph to a PNG file
-output_dir = os.path.dirname('"C:\Users\danie\Downloads\all-data\Full-Lufthansa-Final.csv"')
+output_dir = os.path.dirname('/Users/polinastp/Documents/uni/year1/Q4/dbl/Lufthansa-data-u.csv')
 output_filename = os.path.join(output_dir, 'predicted-retweets.png')
 plt.savefig(output_filename)
 
