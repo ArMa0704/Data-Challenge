@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 
-df = pd.read_csv("conversation_analysis_first_response.csv")
+df = pd.read_csv("../conversation_analysis_first_response.csv")
 
 df['response_time'] = df['response_time'].apply(lambda x: pd.to_timedelta(x).total_seconds()/60)
 
