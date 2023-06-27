@@ -37,16 +37,15 @@ def get_conversations(dataframe, airline_id):
 
     all_conversations = original_tweets.apply(process_row, axis=1).tolist()
 
-    # Convert the list of dictionaries to a dataframe
     df_conversations = pd.DataFrame(all_conversations)
 
-    # Save the dataframe to a JSON file
+    # Save json
     df_conversations.to_json("conversations-Lufthansa2.json", orient='records', date_format='iso')
 
 
 
 # Load cleaned data
-data_path = "cleaned/cleaned_lufthansa"
+data_path = "../cleaned/cleaned_lufthansa"
 dataframe = pd.read_csv(data_path)
 dataframe['id'] = dataframe['id'].astype(str)
 
